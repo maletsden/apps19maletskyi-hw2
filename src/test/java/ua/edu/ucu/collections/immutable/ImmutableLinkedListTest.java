@@ -1,5 +1,6 @@
 package ua.edu.ucu.collections.immutable;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -64,6 +65,15 @@ public class ImmutableLinkedListTest extends ImmutableArrayListTest {
         Object result = testArray.getLast();
 
         assertEquals(expectedResult, result);
+
+        // test empty
+        Object[] emptyArray = new Object[0];
+
+        ImmutableLinkedList emptyList = new ImmutableLinkedList(emptyArray);
+
+        result = emptyList.getLast();
+
+        assertNull(result);
     }
 
     @Test

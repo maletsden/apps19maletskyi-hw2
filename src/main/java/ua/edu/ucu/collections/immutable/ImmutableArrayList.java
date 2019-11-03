@@ -14,7 +14,7 @@ public class ImmutableArrayList implements ImmutableList {
         this.elements = Arrays.copyOf(elements, elements.length);
     }
 
-    //додає елемент у кінець колекції
+    // додає елемент у кінець колекції
     public ImmutableList add(Object e) {
         Object[] newArray = Arrays.copyOf(elements, elements.length + 1);
         newArray[elements.length] = e;
@@ -22,18 +22,21 @@ public class ImmutableArrayList implements ImmutableList {
         return new ImmutableArrayList(newArray);
     }
 
-    //додає елемент до колекції за індексом, та кидає виключну ситуацію, якщо індекс виходить за межі колекції
+    // додає елемент до колекції за індексом, та кидає виключну ситуацію,
+    // якщо індекс виходить за межі колекції
     public ImmutableList add(int index, Object e) {
         checkIndexError(index);
 
         Object[] newArray = Arrays.copyOf(elements, elements.length + 1);
-        System.arraycopy(elements, index, newArray, index + 1, elements.length - index);
+        System.arraycopy(
+                elements, index, newArray, index + 1, elements.length - index
+        );
         newArray[index] = e;
 
         return new ImmutableArrayList(newArray);
     }
 
-    //додає масив елементів у кінець колекції
+    // додає масив елементів у кінець колекції
     public ImmutableList addAll(Object[] c) {
         Object[] newArray = Arrays.copyOf(elements, elements.length + c.length);
         System.arraycopy(c, 0, newArray, elements.length, c.length);
@@ -41,37 +44,47 @@ public class ImmutableArrayList implements ImmutableList {
         return new ImmutableArrayList(newArray);
     }
 
-    // додає масив елементів починаючи з зазначеного індекса, та кидає виключну ситуацію, якщо індекс виходить за межі колекції
+    // додає масив елементів починаючи з зазначеного індекса, та кидає виключну ситуацію,
+    // якщо індекс виходить за межі колекції
     public ImmutableList addAll(int index, Object[] c) {
         checkIndexError(index);
 
         Object[] newArray = Arrays.copyOf(elements, elements.length + c.length);
-        System.arraycopy(elements, index, newArray, index + c.length, elements.length - index);
+        System.arraycopy(
+                elements, index, newArray, index + c.length,
+                elements.length - index
+        );
         System.arraycopy(c, 0, newArray, index, c.length);
 
 
         return new ImmutableArrayList(newArray);
     }
 
-    // повертає елемент за індексом, та кидає виключну ситуацію, якщо індекс виходить за межі колекції
+    // повертає елемент за індексом, та кидає виключну ситуацію,
+    // якщо індекс виходить за межі колекції
     public Object get(int index) {
         checkIndexError(index);
 
         return elements[index];
     }
 
-    // видаляє елемент за індексом, та кидає виключну ситуацію, якщо індекс виходить за межі колекції
+    // видаляє елемент за індексом, та кидає виключну ситуацію,
+    // якщо індекс виходить за межі колекції
     public ImmutableList remove(int index) {
         checkIndexError(index);
 
         Object[] newArray = new Object[elements.length - 1];
         System.arraycopy(elements, 0, newArray, 0, index);
-        System.arraycopy(elements, index + 1, newArray, index, elements.length - index - 1);
+        System.arraycopy(
+                elements, index + 1, newArray, index,
+                elements.length - index - 1
+        );
 
         return new ImmutableArrayList(newArray);
     }
 
-    // змінює значення елементу за індексом, та кидає виключну ситуацію, якщо індекс виходить за межі колекції
+    // змінює значення елементу за індексом, та кидає виключну ситуацію,
+    // якщо індекс виходить за межі колекції
     public ImmutableList set(int index, Object e) {
         checkIndexError(index);
 
@@ -81,7 +94,8 @@ public class ImmutableArrayList implements ImmutableList {
         return new ImmutableArrayList(newArray);
     }
 
-    // шукає індекс елемента (повертає індекс першого який знайшов, або -1 у випадку відсутності)
+    // шукає індекс елемента (повертає індекс першого який знайшов,
+    // або -1 у випадку відсутності)
     public int indexOf(Object e) {
         if (isEmpty()) {
             return -1;

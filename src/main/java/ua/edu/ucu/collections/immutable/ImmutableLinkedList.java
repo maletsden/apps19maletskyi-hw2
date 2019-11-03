@@ -3,20 +3,40 @@ package ua.edu.ucu.collections.immutable;
 import java.util.Arrays;
 
 public class ImmutableLinkedList implements ImmutableList {
-    private Node head = null;
-    private int size = 0;
-    private Node tail = null;
+    private Node head;
+    private int size;
+    private Node tail;
 
     private static class Node {
-        Node next = null;
-        Object value;
+        private Node next = null;
+        private Object value;
 
         Node(Object value) {
+            setValue(value);
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+
+        public void setValue(Object value) {
             this.value = value;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public Object getValue() {
+            return value;
         }
     }
 
-    public ImmutableLinkedList() {}
+    public ImmutableLinkedList() {
+        head = null;
+        size = 0;
+        tail = null;
+    }
 
     public ImmutableLinkedList(Object[] elements) {
         size = elements.length;
@@ -26,13 +46,15 @@ public class ImmutableLinkedList implements ImmutableList {
         }
 
         Node currentNode = new Node(elements[0]);
-        head = tail = currentNode;
+        head = currentNode;
+        tail = currentNode;
 
         for (int i = 1; i < size; i++) {
             Node newNode = new Node(elements[i]);
-            currentNode.next = newNode;
+            currentNode.setNext(newNode);
 
-            currentNode = tail = newNode;
+            currentNode = newNode;
+            tail = newNode;
         }
     }
 
@@ -44,12 +66,16 @@ public class ImmutableLinkedList implements ImmutableList {
         return new ImmutableLinkedList(newArray);
     }
 
-    // додає елемент до колекції за індексом, та кидає виключну ситуацію, якщо індекс виходить за межі колекції
+    // додає елемент до колекції за індексом, та кидає виключну ситуацію,
+    // якщо індекс виходить за межі колекції
     public ImmutableList add(int index, Object e) {
         checkIndexError(index);
 
         Object[] newArray = Arrays.copyOf(toArray(), size + 1);
-        System.arraycopy(newArray, index, newArray, index + 1, size - index);
+        System.arraycopy(
+                newArray, index, newArray, index + 1,
+                size - index
+        );
         newArray[index] = e;
 
         return new ImmutableLinkedList(newArray);
@@ -63,42 +89,52 @@ public class ImmutableLinkedList implements ImmutableList {
         return new ImmutableLinkedList(newArray);
     }
 
-    // додає масив елементів починаючи з зазначеного індекса, та кидає виключну ситуацію, якщо індекс виходить за межі колекції
+    // додає масив елементів починаючи з зазначеного індекса,
+    // та кидає виключну ситуацію, якщо індекс виходить за межі колекції
     public ImmutableList addAll(int index, Object[] c) {
         checkIndexError(index);
 
         Object[] newArray = Arrays.copyOf(toArray(), size + c.length);
-        System.arraycopy(newArray, index, newArray, index + c.length, size - index);
+        System.arraycopy(
+                newArray, index, newArray, index + c.length,
+                size - index
+        );
         System.arraycopy(c, 0, newArray, index, c.length);
 
         return new ImmutableLinkedList(newArray);
     }
 
-    // повертає елемент за індексом, та кидає виключну ситуацію, якщо індекс виходить за межі колекції
+    // повертає елемент за індексом, та кидає виключну ситуацію,
+    // якщо індекс виходить за межі колекції
     public Object get(int index) {
         checkIndexError(index);
 
         Node node = head;
         for (int i = 1; i <= index; i++) {
-            node = node.next;
+            node = node.getNext();
         }
 
-        return node.value;
+        return node.getValue();
     }
 
-    // видаляє елемент за індексом, та кидає виключну ситуацію, якщо індекс виходить за межі колекції
+    // видаляє елемент за індексом, та кидає виключну ситуацію,
+    // якщо індекс виходить за межі колекції
     public ImmutableList remove(int index) {
         checkIndexError(index);
 
         Object[] elements = toArray();
         Object[] newArray = new Object[size - 1];
         System.arraycopy(elements, 0, newArray, 0, index);
-        System.arraycopy(elements, index + 1, newArray, index, elements.length - index - 1);
+        System.arraycopy(
+                elements, index + 1, newArray, index,
+                elements.length - index - 1
+        );
 
         return new ImmutableLinkedList(newArray);
     }
 
-    // змінює значення елементу за індексом, та кидає виключну ситуацію, якщо індекс виходить за межі колекції
+    // змінює значення елементу за індексом, та кидає виключну ситуацію,
+    // якщо індекс виходить за межі колекції
     public ImmutableList set(int index, Object e) {
         checkIndexError(index);
 
@@ -108,7 +144,8 @@ public class ImmutableLinkedList implements ImmutableList {
         return new ImmutableLinkedList(newArray);
     }
 
-    // шукає індекс елемента (повертає індекс першого який знайшов, або -1 у випадку відсутності)
+    // шукає індекс елемента (повертає індекс першого який знайшов,
+    // або -1 у випадку відсутності)
     public int indexOf(Object e) {
         if (isEmpty()) {
             return -1;
@@ -116,11 +153,11 @@ public class ImmutableLinkedList implements ImmutableList {
 
         Node node = head;
         for (int i = 0; i < size; i++) {
-            if (node.value == e) {
+            if (node.getValue() == e) {
                 return i;
             }
 
-            node = node.next;
+            node = node.getNext();
         }
 
         return -1;
@@ -147,9 +184,9 @@ public class ImmutableLinkedList implements ImmutableList {
 
         Node node = head;
         for (int i = 0; i < size; i++) {
-            array[i] = node.value;
+            array[i] = node.getValue();
 
-            node = node.next;
+            node = node.getNext();
         }
 
         return array;
@@ -171,7 +208,11 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     public Object getLast() {
-        return tail != null ? tail.value : null;
+        if (tail == null) {
+            return null;
+        }
+
+        return tail.getValue();
     }
 
     // видаляє перший елемент
