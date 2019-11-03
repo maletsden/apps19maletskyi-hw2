@@ -15,12 +15,12 @@ public class ImmutableLinkedList implements ImmutableList {
             setValue(value);
         }
 
-        public void setNext(Node next) {
-            this.next = next;
+        public void setNext(Node newNext) {
+            next = newNext;
         }
 
-        public void setValue(Object value) {
-            this.value = value;
+        public void setValue(Object newValue) {
+            value = newValue;
         }
 
         public Node getNext() {

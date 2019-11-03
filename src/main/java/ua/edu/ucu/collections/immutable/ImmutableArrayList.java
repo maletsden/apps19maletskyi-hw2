@@ -44,8 +44,8 @@ public class ImmutableArrayList implements ImmutableList {
         return new ImmutableArrayList(newArray);
     }
 
-    // додає масив елементів починаючи з зазначеного індекса, та кидає виключну ситуацію,
-    // якщо індекс виходить за межі колекції
+    // додає масив елементів починаючи з зазначеного індекса,
+    // та кидає виключну ситуацію, якщо індекс виходить за межі колекції
     public ImmutableList addAll(int index, Object[] c) {
         checkIndexError(index);
 
