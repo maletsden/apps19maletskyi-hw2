@@ -1,6 +1,5 @@
 package ua.edu.ucu.collections.immutable;
 
-import lombok.SneakyThrows;
 import org.junit.*;
 
 import java.util.Arrays;
