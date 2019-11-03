@@ -7,7 +7,7 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class ImmutableArrayListTest {
-    public Object[] basicArray = {1, 2.0, "abc", 'd'};;
+    private static final Object[] basicArray = {1, 2.0, "abc", 'd'};;
     public ImmutableList testArray = new ImmutableArrayList(basicArray);
 
     @Before
