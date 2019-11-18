@@ -15,7 +15,7 @@ public class ImmutableArrayList implements ImmutableList {
     }
 
     // додає елемент у кінець колекції
-    public ImmutableList add(Object e) {
+    public ImmutableArrayList add(Object e) {
         Object[] newArray = Arrays.copyOf(elements, elements.length + 1);
         newArray[elements.length] = e;
 
@@ -24,7 +24,7 @@ public class ImmutableArrayList implements ImmutableList {
 
     // додає елемент до колекції за індексом, та кидає виключну ситуацію,
     // якщо індекс виходить за межі колекції
-    public ImmutableList add(int index, Object e) {
+    public ImmutableArrayList add(int index, Object e) {
         checkIndexError(index);
 
         Object[] newArray = Arrays.copyOf(elements, elements.length + 1);
@@ -37,7 +37,7 @@ public class ImmutableArrayList implements ImmutableList {
     }
 
     // додає масив елементів у кінець колекції
-    public ImmutableList addAll(Object[] c) {
+    public ImmutableArrayList addAll(Object[] c) {
         Object[] newArray = Arrays.copyOf(elements, elements.length + c.length);
         System.arraycopy(c, 0, newArray, elements.length, c.length);
 
@@ -46,7 +46,7 @@ public class ImmutableArrayList implements ImmutableList {
 
     // додає масив елементів починаючи з зазначеного індекса,
     // та кидає виключну ситуацію, якщо індекс виходить за межі колекції
-    public ImmutableList addAll(int index, Object[] c) {
+    public ImmutableArrayList addAll(int index, Object[] c) {
         checkIndexError(index);
 
         Object[] newArray = Arrays.copyOf(elements, elements.length + c.length);
@@ -70,7 +70,7 @@ public class ImmutableArrayList implements ImmutableList {
 
     // видаляє елемент за індексом, та кидає виключну ситуацію,
     // якщо індекс виходить за межі колекції
-    public ImmutableList remove(int index) {
+    public ImmutableArrayList remove(int index) {
         checkIndexError(index);
 
         Object[] newArray = new Object[elements.length - 1];
@@ -85,7 +85,7 @@ public class ImmutableArrayList implements ImmutableList {
 
     // змінює значення елементу за індексом, та кидає виключну ситуацію,
     // якщо індекс виходить за межі колекції
-    public ImmutableList set(int index, Object e) {
+    public ImmutableArrayList set(int index, Object e) {
         checkIndexError(index);
 
         Object[] newArray = Arrays.copyOf(elements, elements.length);
@@ -102,7 +102,7 @@ public class ImmutableArrayList implements ImmutableList {
         }
 
         for (int i = 0; i < elements.length; i++) {
-            if (elements[i] == e) {
+            if (elements[i].equals(e)) {
                 return i;
             }
         }
@@ -116,7 +116,7 @@ public class ImmutableArrayList implements ImmutableList {
     }
 
     // очищує вміст колекції
-    public ImmutableList clear() {
+    public ImmutableArrayList clear() {
         return new ImmutableArrayList();
     }
 

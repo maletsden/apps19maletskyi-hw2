@@ -59,7 +59,7 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     // додає елемент у кінець колекції
-    public ImmutableList add(Object e) {
+    public ImmutableLinkedList add(Object e) {
         Object[] newArray = Arrays.copyOf(toArray(), size + 1);
         newArray[size] = e;
 
@@ -68,7 +68,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     // додає елемент до колекції за індексом, та кидає виключну ситуацію,
     // якщо індекс виходить за межі колекції
-    public ImmutableList add(int index, Object e) {
+    public ImmutableLinkedList add(int index, Object e) {
         checkIndexError(index);
 
         Object[] newArray = Arrays.copyOf(toArray(), size + 1);
@@ -82,7 +82,7 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     //додає масив елементів у кінець колекції
-    public ImmutableList addAll(Object[] c) {
+    public ImmutableLinkedList addAll(Object[] c) {
         Object[] newArray = Arrays.copyOf(toArray(), size + c.length);
         System.arraycopy(c, 0, newArray, size, c.length);
 
@@ -91,7 +91,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     // додає масив елементів починаючи з зазначеного індекса,
     // та кидає виключну ситуацію, якщо індекс виходить за межі колекції
-    public ImmutableList addAll(int index, Object[] c) {
+    public ImmutableLinkedList addAll(int index, Object[] c) {
         checkIndexError(index);
 
         Object[] newArray = Arrays.copyOf(toArray(), size + c.length);
@@ -119,7 +119,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     // видаляє елемент за індексом, та кидає виключну ситуацію,
     // якщо індекс виходить за межі колекції
-    public ImmutableList remove(int index) {
+    public ImmutableLinkedList remove(int index) {
         checkIndexError(index);
 
         Object[] elements = toArray();
@@ -135,7 +135,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     // змінює значення елементу за індексом, та кидає виключну ситуацію,
     // якщо індекс виходить за межі колекції
-    public ImmutableList set(int index, Object e) {
+    public ImmutableLinkedList set(int index, Object e) {
         checkIndexError(index);
 
         Object[] newArray = Arrays.copyOf(toArray(), size);
@@ -153,7 +153,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
         Node node = head;
         for (int i = 0; i < size; i++) {
-            if (node.getValue() == e) {
+            if (node.getValue().equals(e)) {
                 return i;
             }
 
@@ -169,7 +169,7 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
     // очищує вміст колекції
-    public ImmutableList clear() {
+    public ImmutableLinkedList clear() {
         return new ImmutableLinkedList();
     }
 
