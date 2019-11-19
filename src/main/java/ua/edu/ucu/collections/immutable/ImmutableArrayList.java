@@ -16,38 +16,26 @@ public class ImmutableArrayList implements ImmutableList {
 
     // додає елемент у кінець колекції
     public ImmutableArrayList add(Object e) {
-        Object[] newArray = Arrays.copyOf(elements, elements.length + 1);
-        newArray[elements.length] = e;
-
-        return new ImmutableArrayList(newArray);
+        return addAll(elements.length, new Object[]{e});
     }
 
     // додає елемент до колекції за індексом, та кидає виключну ситуацію,
     // якщо індекс виходить за межі колекції
     public ImmutableArrayList add(int index, Object e) {
-        checkIndexError(index);
-
-        Object[] newArray = Arrays.copyOf(elements, elements.length + 1);
-        System.arraycopy(
-                elements, index, newArray, index + 1, elements.length - index
-        );
-        newArray[index] = e;
-
-        return new ImmutableArrayList(newArray);
+        return addAll(index, new Object[]{e});
     }
 
     // додає масив елементів у кінець колекції
     public ImmutableArrayList addAll(Object[] c) {
-        Object[] newArray = Arrays.copyOf(elements, elements.length + c.length);
-        System.arraycopy(c, 0, newArray, elements.length, c.length);
-
-        return new ImmutableArrayList(newArray);
+        return addAll(elements.length, c);
     }
 
     // додає масив елементів починаючи з зазначеного індекса,
     // та кидає виключну ситуацію, якщо індекс виходить за межі колекції
     public ImmutableArrayList addAll(int index, Object[] c) {
-        checkIndexError(index);
+        if (index != elements.length) {
+            checkIndexError(index);
+        }
 
         Object[] newArray = Arrays.copyOf(elements, elements.length + c.length);
         System.arraycopy(

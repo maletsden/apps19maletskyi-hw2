@@ -60,39 +60,26 @@ public class ImmutableLinkedList implements ImmutableList {
 
     // додає елемент у кінець колекції
     public ImmutableLinkedList add(Object e) {
-        Object[] newArray = Arrays.copyOf(toArray(), size + 1);
-        newArray[size] = e;
-
-        return new ImmutableLinkedList(newArray);
+        return addAll(size, new Object[]{e});
     }
 
     // додає елемент до колекції за індексом, та кидає виключну ситуацію,
     // якщо індекс виходить за межі колекції
     public ImmutableLinkedList add(int index, Object e) {
-        checkIndexError(index);
-
-        Object[] newArray = Arrays.copyOf(toArray(), size + 1);
-        System.arraycopy(
-                newArray, index, newArray, index + 1,
-                size - index
-        );
-        newArray[index] = e;
-
-        return new ImmutableLinkedList(newArray);
+        return addAll(index, new Object[]{e});
     }
 
     //додає масив елементів у кінець колекції
     public ImmutableLinkedList addAll(Object[] c) {
-        Object[] newArray = Arrays.copyOf(toArray(), size + c.length);
-        System.arraycopy(c, 0, newArray, size, c.length);
-
-        return new ImmutableLinkedList(newArray);
+        return addAll(size, c);
     }
 
     // додає масив елементів починаючи з зазначеного індекса,
     // та кидає виключну ситуацію, якщо індекс виходить за межі колекції
     public ImmutableLinkedList addAll(int index, Object[] c) {
-        checkIndexError(index);
+        if (index != size) {
+            checkIndexError(index);
+        }
 
         Object[] newArray = Arrays.copyOf(toArray(), size + c.length);
         System.arraycopy(
@@ -195,12 +182,12 @@ public class ImmutableLinkedList implements ImmutableList {
 
     // додає елемент у початок зв'язаного списку
     public ImmutableLinkedList addFirst(Object e) {
-        return (ImmutableLinkedList) add(0, e);
+        return add(0, e);
     }
 
     // додає елемент у кінець зв'язаного списку
     public ImmutableLinkedList addLast(Object e) {
-        return (ImmutableLinkedList) add(e);
+        return add(e);
     }
 
     public Object getFirst() {
@@ -217,13 +204,11 @@ public class ImmutableLinkedList implements ImmutableList {
 
     // видаляє перший елемент
     public ImmutableLinkedList removeFirst() {
-        return (ImmutableLinkedList) remove(0);
+        return remove(0);
     }
 
     // видаляє останній елемент
-    public ImmutableLinkedList removeLast() {
-        return (ImmutableLinkedList) remove(size - 1);
-    }
+    public ImmutableLinkedList removeLast() { return remove(size - 1); }
 
 
     // повертає рядок, де через кому відображаютсься елементи колекції
